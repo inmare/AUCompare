@@ -1,1 +1,202 @@
-<html><body><p>Hello World</p></body></html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=”utf-8”>
+    <script type="text/javascript"></script>
+  </head>
+  <style>
+      .topbox {
+          border: 3px solid black;
+          margin: 10px;
+          padding: 0px 10px 10px 10px;
+          width: 550px;
+      }
+      img {
+          display: block;
+          box-shadow : 3px 3px 3px gray;
+          margin-top:10px; margin-bottom: 10px;
+          margin-left: auto; margin-right: auto;
+          width : 500px;
+      }
+  </style>
+  <body>
+    <input type="text" id="input">
+    <button onclick="input()">찾기</button>
+    사용법은 페이지 하단을 참조해주세요.
+
+    <div class="topbox">
+        <h5>EN</h5>
+        <div id="EN">
+          <a><img id="ImgEN" src="https://i.postimg.cc/Pqp0kJhN/56-no-result-en.png"/></a>
+        </div>
+        <h5>JP</h5>
+        <div id="JP">
+          <a><img id="ImgJP" src="https://i.postimg.cc/hGk64nPs/56-no-result-jp.png"/></a>
+        </div>
+    </div>
+
+    <div class="topbox">
+      <h3>사이트를 만든 목적</h3>
+      <p>말 그대로 AviUtl스크립트들을 영문화 하는 사람들만을 위한, 굉장히 한정적인 용도의 사이트입니다.
+        원래는 개인적인 용도로 사용하고, html연습 겸 만들어본 사이트인데 그냥 github도 사용해 볼 겸 이렇게 사용법도 적어둡니다.
+      </p>
+      <p>AviUtl스크립트을 영문화 할 때 스크립트 중간에 있는 일본어들, 즉 설정 다이얼로그의 이름이 아닌 것들은 전부 다 AviUtl의 효과 
+        이름으로, 영문화 하는 과정에서 영문판의 효과와 이름이 완벽히 일치해야 작동합니다.
+      </p>
+      <p>그런데 이건 번역기에 돌린다고 해서 언제나 영문판의 효과 이름과 같은 이름이 나오지 않기 때문에, 일일히 AviUtl 영문판을 열어서 
+        효과를 확인하기 위한 귀찮음을 없애기 위해서 만든 사이트입니다.
+      </p>
+      <h3>사이트 이용법</h3>
+      <p>영문화를 하는 중간에 나온 효과 이름을 검색창에 넣고 찾기를 클릭하면 자동으로 EN과 JP글자 밑에 각각의 효과의 사진을 올려줍니다.
+        그러면 그 사진을 비교해 가면서 뭐가 무슨 효과인지 참고한 후 영문화를 진행하시면 됩니다. 참고로 효과 목록에 없는 효과를 넣었을 때는 
+        기술적 한계로 아무 일도 발생하지 않습니다.
+      </p>
+      <p>또한 작업하시는 효과 창이랑 번갈아 보기 편하시라고 일부러 창 크기를 작게 만들었습니다.
+      </p>
+      <h3>제작자 및 후기</h3>
+      <p>제작자 : Webcam</p>
+      <p>새벽 3시에 이걸 만들면서 왜 내가 이런 걸 만들고 있는 의문을 가지는 중입니다. 아무리 github연습 겸 올리는 사이트이긴 하지만 
+        과연 수요가 있을까 궁금해지네요.
+      </p>
+    </div>
+
+    <script type="text/javascript">
+    var effectarr = ["色調補正", "クリッピング", "ぼかし", "境界ぼかし", "モザイク", "発光", "閃光", "拡散光", "グロー",
+    "クロマキー", "カラーキー", "ルミナンスキー", "ライト", "シャドー", "縁取り", "凸エッジ", "エッジ抽出", "シャープ",
+    "フェード", "ワイプ", "マスク", "斜めクリッピング", "放射ブラー", "方向ブラー", "レンズブラー", "モーションブラー",
+    "座標", "拡大率", "透明度", "回転", "領域拡張", "リサイズ", "ローテーション", "反転", "振動", "ミラー", "ラスター",
+    "波紋", "画像ループ", "極座標変換", "ディスプレイメントマップ", "ノイズ", "色ずれ", "単色化", "グラデーション", "拡張色",
+    "特定色域変換", "アニメーション効果", "スクリプト制御", "動画ファイル合成", "画像ファイル合成", "インターレース解除",
+    "カメラ制御オプション", "オフスクリーン描画", "オブジェクト分割"]
+
+    var picarr = [
+      "https://i.postimg.cc/rscHW94t/01-color-compensation-en.png", 
+      "https://i.postimg.cc/zvjckRw2/01-color-compensation-jp.png", 
+      "https://i.postimg.cc/ZYF2m1kP/02-clipping-en.png", 
+      "https://i.postimg.cc/ZKbg5VZG/02-clipping-jp.png", 
+      "https://i.postimg.cc/X7sPGdYp/03-blur-en.png", 
+      "https://i.postimg.cc/y8WbFxDn/03-blur-jp.png", 
+      "https://i.postimg.cc/jj73F1Q7/04-boundary-blurring-en.png", 
+      "https://i.postimg.cc/hjRZW0p3/04-boundary-blurring-jp.png", 
+      "https://i.postimg.cc/2SJXTYvY/05-mosaic-en.png", 
+      "https://i.postimg.cc/Pxb3t87f/05-mosaic-jp.png", 
+      "https://i.postimg.cc/QCX6VdLQ/06-emission-en.png", 
+      "https://i.postimg.cc/gjNghbdf/06-emission-jp.png", 
+      "https://i.postimg.cc/Pf439YZ2/07-flash-en.png", 
+      "https://i.postimg.cc/c4L9SCBZ/07-flash-jp.png", 
+      "https://i.postimg.cc/BQ7hQ3mF/08-diffusion-light-en.png", 
+      "https://i.postimg.cc/3xytkqqc/08-diffusion-light-jp.png", 
+      "https://i.postimg.cc/R0KGRH41/09-glow-en.png", 
+      "https://i.postimg.cc/0yLcDfR2/09-glow-jp.png", 
+      "https://i.postimg.cc/zBN7PGGs/10-chroma-key-en.png", 
+      "https://i.postimg.cc/j5hcVYWL/10-chroma-key-jp.png", 
+      "https://i.postimg.cc/1X5Hs76M/11-color-key-en.png", 
+      "https://i.postimg.cc/BbYC65B3/11-color-key-jp.png", 
+      "https://i.postimg.cc/pXrZS7PL/12-luminance-key-en.png", 
+      "https://i.postimg.cc/VsDgD1Qh/12-luminance-key-jp.png", 
+      "https://i.postimg.cc/0yJCkwMg/13-light-en.png", 
+      "https://i.postimg.cc/Nfn4v407/13-light-jp.png", 
+      "https://i.postimg.cc/25R7VSh1/14-shadow-en.png", 
+      "https://i.postimg.cc/3wXCpQFn/14-shadow-jp.png", 
+      "https://i.postimg.cc/vBG7t2PM/15-add-border-en.png", 
+      "https://i.postimg.cc/SsV6TL59/15-add-border-jp.png", 
+      "https://i.postimg.cc/QCyps8jx/16-bevel-en.png", 
+      "https://i.postimg.cc/kG4xk63p/16-bevel-jp.png", 
+      "https://i.postimg.cc/y6Qh0P04/17-edge-extraction-en.png", 
+      "https://i.postimg.cc/3JkX1vZy/17-edge-extraction-jp.png", 
+      "https://i.postimg.cc/JzJbVCvM/18-sharpen-en.png", 
+      "https://i.postimg.cc/zX4ncGdx/18-sharpen-jp.png", 
+      "https://i.postimg.cc/25DnCXNv/19-fade-en.png", 
+      "https://i.postimg.cc/XvkdqcnP/19-fade-jp.png", 
+      "https://i.postimg.cc/0Q5mwMQy/20-wipe-en.png", 
+      "https://i.postimg.cc/ydfRX1gX/20-wipe-jp.png", 
+      "https://i.postimg.cc/mkJFJmSP/21-mask-en.png", 
+      "https://i.postimg.cc/C5zqc3by/21-mask-jp.png", 
+      "https://i.postimg.cc/1Rj68zZy/22-diagonal-clipping-en.png", 
+      "https://i.postimg.cc/nc9mBtHB/22-diagonal-clipping-jp.png", 
+      "https://i.postimg.cc/9Q37BNMS/23-radial-blur-en.png", 
+      "https://i.postimg.cc/zGnR2SHf/23-radial-blur-jp.png", 
+      "https://i.postimg.cc/6Qc4tW0J/24-direction-blur-en.png", 
+      "https://i.postimg.cc/k5qR06Wv/24-direction-blur-jp.png", 
+      "https://i.postimg.cc/fLbtbG23/25-lens-blur-en.png", 
+      "https://i.postimg.cc/hj3JQ262/25-lens-blur-jp.png", 
+      "https://i.postimg.cc/C5BRGjVS/26-motion-blur-en.png", 
+      "https://i.postimg.cc/J0fGPG1J/26-motion-blur-jp.png", 
+      "https://i.postimg.cc/wTNt3cVk/27-coordinate-en.png", 
+      "https://i.postimg.cc/7PdGxQg6/27-coordinate-jp.png", 
+      "https://i.postimg.cc/RZzWt6px/28-zoom-en.png", 
+      "https://i.postimg.cc/7LKhjBHq/28-zoom-jp.png", 
+      "https://i.postimg.cc/tgq7S0Hr/29-clearness-en.png", 
+      "https://i.postimg.cc/FHg7Vrwd/29-clearness-jp.png", 
+      "https://i.postimg.cc/V65vwjvn/30-rotation-en.png", 
+      "https://i.postimg.cc/mDqDgt1q/30-rotation-jp.png", 
+      "https://i.postimg.cc/6TxpCg0f/31-region-expansion-en.png", 
+      "https://i.postimg.cc/2yZ5br45/31-region-expansion-jp.png", 
+      "https://i.postimg.cc/mZt8DD5S/32-resize-en.png", 
+      "https://i.postimg.cc/J7vKB8wC/32-resize-jp.png", 
+      "https://i.postimg.cc/VLtgqh1r/33-locked-rotation-en.png", 
+      "https://i.postimg.cc/mgGw8S2d/33-locked-rotation-jp.png", 
+      "https://i.postimg.cc/x1yP7bX9/34-reversal-en.png", 
+      "https://i.postimg.cc/43f1TNcV/34-reversal-jp.png", 
+      "https://i.postimg.cc/bvm9Yc0M/35-vibration-en.png", 
+      "https://i.postimg.cc/0QrdbWcN/35-vibration-jp.png", 
+      "https://i.postimg.cc/kGbQyVr3/36-mirror-en.png", 
+      "https://i.postimg.cc/4dMvt6SQ/36-mirror-jp.png", 
+      "https://i.postimg.cc/L4Y3SWJC/37-raster-en.png", 
+      "https://i.postimg.cc/8k2BzbW1/37-raster-jp.png", 
+      "https://i.postimg.cc/ZK6PByF6/38-ripple-en.png", 
+      "https://i.postimg.cc/13PGp5J2/38-ripple-jp.png", 
+      "https://i.postimg.cc/bwTQLc5J/39-image-tiling-en.png", 
+      "https://i.postimg.cc/g023Tt9K/39-image-tiling-jp.png", 
+      "https://i.postimg.cc/RF3KM3Z6/40-polar-coordinate-conversion-en.png", 
+      "https://i.postimg.cc/MG3120qJ/40-polar-coordinate-conversion-jp.png", 
+      "https://i.postimg.cc/FR2c19YP/41-displacement-map-en.png", 
+      "https://i.postimg.cc/4xB9VvKH/41-displacement-map-jp.png", 
+      "https://i.postimg.cc/cJC8mKY9/42-noise-en.png", 
+      "https://i.postimg.cc/P5tDCVqk/42-noise-jp.png", 
+      "https://i.postimg.cc/dQyrpTfg/43-color-shift-en.png", 
+      "https://i.postimg.cc/C5k8qWDw/43-color-shift-jp.png", 
+      "https://i.postimg.cc/65VR5xt0/44-monochromatic-en.png", 
+      "https://i.postimg.cc/xTVM21D8/44-monochromatic-jp.png", 
+      "https://i.postimg.cc/YSPLypzp/45-gradient-en.png", 
+      "https://i.postimg.cc/d1Tkbz5G/45-gradient-jp.png", 
+      "https://i.postimg.cc/KjSkxJWw/46-extended-color-setting-en.png", 
+      "https://i.postimg.cc/hvLJjVWj/46-extended-color-setting-jp.png", 
+      "https://i.postimg.cc/Fz546cL9/47-specific-color-gamut-conversion-en.png", 
+      "https://i.postimg.cc/MZVxQsCX/47-specific-color-gamut-conversion-jp.png", 
+      "https://i.postimg.cc/NfxcNKfc/48-animation-effect-en.png", 
+      "https://i.postimg.cc/Jz4WSRGB/48-animation-effect-jp.png", 
+      "https://i.postimg.cc/CL00HG07/49-script-control-en.png", 
+      "https://i.postimg.cc/BbT0f6T2/49-script-control-jp.png", 
+      "https://i.postimg.cc/vZqdsCV2/50-video-file-synthesis-en.png", 
+      "https://i.postimg.cc/43YRNwvf/50-video-file-synthesis-jp.png", 
+      "https://i.postimg.cc/0NhR6mZp/51-synthesis-image-file-en.png", 
+      "https://i.postimg.cc/zvS9PQNj/51-synthesis-image-file-jp.png", 
+      "https://i.postimg.cc/0jqTnsTj/52-de-interlacing-en.png", 
+      "https://i.postimg.cc/RFfrwFb2/52-de-interlacing-jp.png", 
+      "https://i.postimg.cc/ZKHG8XVY/53-camera-control-options-en.png", 
+      "https://i.postimg.cc/y8Nwvnbm/53-camera-control-options-jp.png", 
+      "https://i.postimg.cc/mZYfDP9H/54-off-screen-drawing-en.png", 
+      "https://i.postimg.cc/YqtcmtNy/54-off-screen-drawing-jp.png", 
+      "https://i.postimg.cc/zGP4MWs9/55-object-split-en.png", 
+      "https://i.postimg.cc/k4WZBH2m/55-object-split-jp.png", 
+      "https://i.postimg.cc/Pqp0kJhN/56-no-result-en.png", 
+      "https://i.postimg.cc/hGk64nPs/56-no-result-jp.png"
+    ];
+    var temp;
+    var i;
+    function input(){
+      temp = document.getElementById("input").value;
+      for(i=0; i<55; i++){
+        if(temp != effectarr[i]){
+          continue;
+        }
+        else if(temp == effectarr[i]){
+        document.getElementById("ImgEN").src = picarr[2*i];
+        document.getElementById("ImgJP").src = picarr[2*i+1];
+        }
+      }
+    }
+    </script>
+  </body>
+</html>
